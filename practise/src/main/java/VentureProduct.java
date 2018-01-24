@@ -3,10 +3,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
-public class VentureProductTest {
+public class VentureProduct {
 
-	static List<VentureProductTest> productss = new ArrayList<VentureProductTest>();
+	static List<VentureProduct> productss = new ArrayList<VentureProduct>();
 	String sku;
 	String ufc;
 	String pname;
@@ -40,34 +41,34 @@ public class VentureProductTest {
 		return "VentureProductTest [sku=" + sku + ", ufc=" + ufc + ", pname=" + pname + "]";
 	}
 
-	public VentureProductTest(String sku, String ufc, String pname) {
+	public VentureProduct(String sku, String ufc, String pname) {
 		super();
 		this.sku = sku;
 		this.ufc = ufc;
 		this.pname = pname;
 	}
 
-	public VentureProductTest() {
+	public VentureProduct() {
 
 	}
 
 	static {
-		productss.add(new VentureProductTest("123", "8", "A"));
-		productss.add(new VentureProductTest("123", "7", "B"));
-		productss.add(new VentureProductTest("123", "6", "C"));
-		productss.add(new VentureProductTest("124", "8", "A"));
-		productss.add(new VentureProductTest("124", "6", "C"));
-		productss.add(new VentureProductTest("125", "6", "C"));
-		productss.add(new VentureProductTest("126", "6", "C"));
-		productss.add(new VentureProductTest("125", "6", "C"));
-		productss.add(new VentureProductTest("127", "6", "C"));
+		productss.add(new VentureProduct("123", "8", "A"));
+		productss.add(new VentureProduct("123", "7", "B"));
+		productss.add(new VentureProduct("123", "6", "C"));
+		productss.add(new VentureProduct("124", "8", "A"));
+		productss.add(new VentureProduct("124", "6", "C"));
+		productss.add(new VentureProduct("125", "6", "C"));
+		productss.add(new VentureProduct("126", "6", "C"));
+		productss.add(new VentureProduct("125", "6", "C"));
+		productss.add(new VentureProduct("127", "6", "C"));
 	}
 
-	List<ParentGroup> buildparent(List<VentureProductTest> products) {
-		HashMap<String,List<VentureProductTest>> hm = new HashMap<String,List<VentureProductTest>>();
-		List<VentureProductTest> adnew;
+	List<ParentGroup> buildparent(List<VentureProduct> products) {
+		HashMap<String,List<VentureProduct>> hm = new HashMap<String,List<VentureProduct>>();
+		List<VentureProduct> adnew;
 		List<ParentGroup> pgList = new ArrayList<ParentGroup>();
-		for (VentureProductTest p : products) {
+		for (VentureProduct p : products) {
 			if(hm.containsKey(p.getSku())){
 				adnew=hm.get(p.getSku());
 			    adnew.add(p);
@@ -80,16 +81,17 @@ public class VentureProductTest {
 		}
 			
 		}
-		List<Entry<String, List<VentureProductTest>>> listOfParentGroup = new LinkedList<>(hm.entrySet());
+		//List<Entry<String, List<VentureProduct>>> listOfParentGroup = new LinkedList<>(hm.entrySet());
+		Set<Entry<String, List<VentureProduct>>> listOfParentGroup = hm.entrySet();
 		
-		for(Entry<String, List<VentureProductTest>> parentGroup :listOfParentGroup){
+		for(Entry<String, List<VentureProduct>> parentGroup :listOfParentGroup){
 			pgList.add(new ParentGroup(parentGroup.getKey(), parentGroup.getValue()));
 		}
 		return pgList;
 	}
 
 	public static void main(String[] args) {
-		VentureProductTest v = new VentureProductTest();
+		VentureProduct v = new VentureProduct();
 		List<ParentGroup> ppg = v.buildparent(productss);
 		System.out.println(ppg);
 	}
@@ -97,7 +99,7 @@ public class VentureProductTest {
 
 class ParentGroup {
 	String sku;
-	List<VentureProductTest> products = new ArrayList<>();
+	List<VentureProduct> products = new ArrayList<>();
 
 	public String getSku() {
 		return sku;
@@ -107,11 +109,11 @@ class ParentGroup {
 		this.sku = sku;
 	}
 
-	public List<VentureProductTest> getProducts() {
+	public List<VentureProduct> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<VentureProductTest> products) {
+	public void setProducts(List<VentureProduct> products) {
 		this.products = products;
 	}
 
@@ -124,7 +126,7 @@ class ParentGroup {
 		
 	}
 
-	public ParentGroup(String sku, List<VentureProductTest> products) {
+	public ParentGroup(String sku, List<VentureProduct> products) {
 		super();
 		this.sku = sku;
 		this.products = products;
